@@ -58,14 +58,20 @@ var getCityInfo = function (city) {
 }
 
 
+
 var displayWeather = function (cityInfo) {
     console.log(cityInfo)
-
     cityCard.textContent = ""
+
+    var weatherIcon = document.createElement("img")
+    weatherIcon.src = "https://openweathermap.org/img/wn/" + cityInfo.current.weather[0].icon + "@2x.png"
+
     // gatheres elements all required for Weather snapshot
-    var cityName = document.createElement("h3")
+    var cityName = document.createElement("span")
+    cityName.classList = "display-5"
     cityName.textContent = cityInfo.name + " " + date
     cityCard.appendChild(cityName)
+    cityCard.appendChild(weatherIcon)
 
     var cityTemp = document.createElement("span")
     cityTemp.classList = "d-block p-2 lead"
