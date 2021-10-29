@@ -2,20 +2,22 @@ var cityForm = document.querySelector('#city-input')
 var cityName = document.querySelector('#city')
 var cityCard = document.querySelector('#city-body')
 var cityFuture = document.querySelector('#future-date-holders')
+var oldCities = document.querySelector('#old-cities')
 var today = new Date()
 var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-
+var cityHistory = []
 
 
 // City search functionaility
 var citySearch = function (event) {
     event.preventDefault()
-
     var city = cityName.value.trim();
-
     if (city) {
+        cityHistory.push(city)
         getCityCoordinates(city)
+        historyWeather()
         cityName.value = ""
+
     } else {
         alert("Please enter a city name")
     }
@@ -111,8 +113,10 @@ var displayWeather = function (cityInfo) {
 
 }    
 
+// displays weather for future dates
 var futureWeather = function (cityInfo) {
     cityInfo.daily.length = 5
+    cityFuture.textContent = ""
     
     for (let i=0; i < cityInfo.daily.length; i++){
     
@@ -121,7 +125,6 @@ var futureWeather = function (cityInfo) {
 
     var dateFuture = new Date(cityInfo.daily[i].dt * 1000)
     dateFuture = dateFuture.toLocaleDateString()
-    console.log(dateFuture)
 
     var showFuture = document.createElement("span")
     showFuture.textContent = dateFuture
@@ -153,20 +156,18 @@ var futureWeather = function (cityInfo) {
     }
 }
 
+var historyWeather = function(){
+    for (let i=0; i < cityHistory.length; i++) {
+    
+    var historyBlock = document.createElement("div")
 
+    var searchHistory = document.createElement("button")
+    searchHistory.classList = "btn btn-secondary"
+    searchHistory.innerHTML = cityHistory[i]
+    historyBlock.appendChild(searchHistory)
 
-
-
-/*     
-    var dateOne = new Date(cityInfo.daily[1].dt * 1000)
-    var dateTwo = new Date(cityInfo.daily[2].dt * 1000)
-    var dateThree = new Date(cityInfo.daily[3].dt * 1000)
-    var dateFour = new Date(cityInfo.daily[4].dt * 1000)
-    var dateFive = new Date(cityInfo.daily[5].dt * 1000)   
-
-    var cityDate  */
-
-
-
+    cityForm.appendChild(historyBlock)
+    }
+}
 // Event listeners
 cityForm.addEventListener("submit", citySearch)
