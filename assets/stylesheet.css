@@ -5,3 +5,7 @@
 .old-city {
     display:none
 }
+
+.weather-icon {
+    width: 60px
+}

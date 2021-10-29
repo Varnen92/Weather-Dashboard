@@ -1,8 +1,11 @@
 var cityForm = document.querySelector('#city-input')
 var cityName = document.querySelector('#city')
 var cityCard = document.querySelector('#city-body')
+var cityFuture = document.querySelector('#future-date-holders')
 var today = new Date()
 var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+
 
 // City search functionaility
 var citySearch = function (event) {
@@ -47,6 +50,7 @@ var getCityInfo = function (city) {
         if (response.ok) {
             response.json().then(function (data) {
                 displayWeather(data)
+                futureWeather(data)
             })
         } else {
             alert("Not a valid city name!")
@@ -58,9 +62,9 @@ var getCityInfo = function (city) {
 }
 
 
-
+// displays weather for current day
 var displayWeather = function (cityInfo) {
-    console.log(cityInfo)
+    console.log(cityInfo) 
     cityCard.textContent = ""
 
     var weatherIcon = document.createElement("img")
@@ -106,6 +110,61 @@ var displayWeather = function (cityInfo) {
     }
 
 }    
+
+var futureWeather = function (cityInfo) {
+    cityInfo.daily.length = 5
+    
+    for (let i=0; i < cityInfo.daily.length; i++){
+    
+    var forecastBlock = document.createElement("div")
+    forecastBlock.classList = "card bg-secondary text-white m-3"
+
+    var dateFuture = new Date(cityInfo.daily[i].dt * 1000)
+    dateFuture = dateFuture.toLocaleDateString()
+    console.log(dateFuture)
+
+    var showFuture = document.createElement("span")
+    showFuture.textContent = dateFuture
+    forecastBlock.appendChild(showFuture)
+
+     var weatherIcon = document.createElement("img")
+    weatherIcon.src = "https://openweathermap.org/img/wn/" + cityInfo.daily[i].weather[0].icon + ".png"
+    weatherIcon.classList = "weather-icon"
+    forecastBlock.appendChild(weatherIcon) 
+
+    var cityTemp = document.createElement("span")
+    cityTemp.classList = "d-block p-2 lead"
+    cityTemp.textContent = " Temperature: " + cityInfo.daily[i].temp.day + "\u00B0 F"
+    forecastBlock.appendChild(cityTemp)
+
+    var cityWind = document.createElement("span")
+    cityWind.classList = "d-block p-2 lead"
+    cityWind.textContent = "Wind: " + cityInfo.daily[i].wind_speed + " MPH"
+    forecastBlock.appendChild(cityWind)
+
+    var cityHumid = document.createElement("span")
+    cityHumid.classList = "d-block p-2 lead"
+    cityHumid.textContent = "Humidity: " + cityInfo.daily[i].humidity + " %"
+    forecastBlock.appendChild(cityHumid)
+
+    // appends all info to each daily forecast block
+    cityFuture.appendChild(forecastBlock)
+
+    }
+}
+
+
+
+
+
+/*     
+    var dateOne = new Date(cityInfo.daily[1].dt * 1000)
+    var dateTwo = new Date(cityInfo.daily[2].dt * 1000)
+    var dateThree = new Date(cityInfo.daily[3].dt * 1000)
+    var dateFour = new Date(cityInfo.daily[4].dt * 1000)
+    var dateFive = new Date(cityInfo.daily[5].dt * 1000)   
+
+    var cityDate  */
 
 
 
