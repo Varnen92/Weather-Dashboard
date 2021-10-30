@@ -169,7 +169,7 @@ var futureWeather = function (cityInfo) {
     }
 }
 
-
+// stores past weather city searches to retrieve later
 var historyWeather = function () {
     cityPast.textContent = ""
 
