@@ -30,7 +30,7 @@ var citySearch = function (event) {
 // API to grab lat and long of city
 var getCityCoordinates = function (city) {
 
-    var apiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=735f15cd7d0f55eecad4ccfafbaa11cd"
+    var apiUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=735f15cd7d0f55eecad4ccfafbaa11cd"
     fetch(apiUrl).then(function (response) {
         if (response.ok) {
             console.log(apiUrl)
@@ -49,9 +49,9 @@ var getCityCoordinates = function (city) {
             alert("Not a valid city name!")
         }
     })
-      /*   .catch(function (error) {
+         .catch(function (error) {
             alert("Unable to connect to Weather Dashboard! Please try again later!")
-        }) */
+        }) 
 }
 
 // API for city daily info statistics
@@ -59,7 +59,7 @@ var getCityInfo = function (city) {
     var lat = city[0].lat
     var long = city[0].lon
 
-    var oneCallApi = "http://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&units=imperial&appid=735f15cd7d0f55eecad4ccfafbaa11cd"
+    var oneCallApi = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&units=imperial&appid=735f15cd7d0f55eecad4ccfafbaa11cd"
 
     fetch(oneCallApi).then(function (response) {
         if (response.ok) {
@@ -71,9 +71,9 @@ var getCityInfo = function (city) {
             alert("Not a valid city name!")
         }
     })
-      /*   .catch(function (error) {
+         .catch(function (error) {
             alert("Unable to connect to Weather Dashboard!")
-        }) */
+        }) 
 }
 
 
