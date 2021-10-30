@@ -71,9 +71,9 @@ var getCityInfo = function (city) {
             alert("Not a valid city name!")
         }
     })
-        .catch(function (error) {
+      /*   .catch(function (error) {
             alert("Unable to connect to Weather Dashboard!")
-        })
+        }) */
 }
 
 
